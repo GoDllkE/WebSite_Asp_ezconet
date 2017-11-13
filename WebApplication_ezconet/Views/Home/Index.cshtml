@@ -1,0 +1,42 @@
+﻿@{ Page.Title = "Home Page"; }
+
+@section featured {
+    <div id="parallax1" class="bgParallax" data-speed="10">
+        <article>
+            <center>
+                <h1>Bem vindo!</h1>
+                <p>Este é um site inutil</p>
+            </center>
+        </article>
+    </div>
+    <ol class="">
+        <li id="parallax2" class="bgParallax" data-speed="10">
+            <article>
+                <h2>Getting Started</h2>
+                <br />
+                ASP.NET Web Pages and the new Razor syntax provide a fast, approachable, and lightweight way to combine server code with HTML
+                to create dynamic web content. Connect to databases, add video, link to social networking sites, and include many more features
+                that let you create beautiful sites using the latest web standards.
+                <a href="http://www.pudim.com.br/" style="color: crimson;">Learn more…</a>
+            </article>
+        </li>
+        <li id="parallax3" class="bgParallax">
+            <article>
+                <h2>Add NuGet packages and jump start your coding</h2>
+                <br />
+                NuGet makes it easy to install and update free libraries and tools.
+                <a href="http://www.pudim.com.br/" style="color: yellow;">Learn more…</a>
+            </article>
+        </li>
+        <li id="parallax4" class="bgParallax" data-speed="10">
+            <article>
+                <h2>Find Web Hosting</h2>
+                <br />
+                You can easily find a web hosting company that offers the right mix of features and price for your applications.
+                <a href="http://www.pudim.com.br/" style="color: cyan">Learn more…</a>
+            </article>
+        </li>
+    </ol>
+    <!-- Carregamento do Parallax -->
+    <script src="~/Content/js/Parallax.js"></script>
+}

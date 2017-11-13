@@ -1,0 +1,82 @@
+﻿@model WebApplication_ezconet.Models.Usuario
+
+<!-- Exibe mensagem -->
+@if (!string.IsNullOrEmpty(ViewBag.Mensagem))
+{
+        <script type="text/javascript">
+           alert('@ViewBag.Mensagem');
+        </script>
+}
+
+<div style=" width: 75%; margin-left: 15%">
+    <div style="margin-left: 20%">
+        <h1>Cadastro de usuário</h1>
+    </div>
+    <br />
+
+    <span id="spnMensagem" name="mensagem" class="" style="color: orangered;"></span>
+    <hr style="margin-left: -60px; width: 90%"/>
+    <form action="/Usuario/Adiciona" method="post" name="CadastraUsuario" class="form-group">
+        <div style="width: 90%;">
+            <label id="lblNome">Nome do usuario:</label>
+            <input type="text" class="form-control" id="campoNome" name="usuarioNome" placeholder="Nome. ex: João" maxlength="200" value="@ViewBag.Usuario.Nome" required/>
+            <span class="">@Html.ValidationMessage("usuario.Nome")</span>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col">
+                <div style="width: 90%;">
+                    <label id="lblDate">Data de Nascimento: </label>
+                    <input type="datetime-local" class="form-control" id="campoDate" name="usuarioDataNasc" placeholder="01/12/2000" value="@ViewBag.Usuario.DataNascimento" required/>
+                    <span class="is-invalid">@Html.ValidationMessage("usuario.DataNascimento")</span>
+                </div>
+            </div>
+            <div class="col">
+                <div style="margin-left: -11%; width: 90%;">
+                    <label>Genero: </label>
+                    <select id="usuario.SexoId" name="usuarioSexo" class="form-control">
+                        <option class="dropdown-item text-muted" value="0">Selecione um</option>
+                        @foreach (var sexo in ViewBag.Sexo)
+                        {
+
+                            <option class="dropdown-item" value="@sexo.SexoId"  selected="@sexo.SexoId.Equals(ViewBag.Usuario.SexoId)" >@sexo.Descricao</option>
+                        }
+                    </select>
+                    <span class="is-invalid">@Html.ValidationMessage("Sexo")</span>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div style="width: 90%;">
+            <label id="lblEmail">E-Mail: </label>
+            <input type="text" class="form-control" id="campoEmail" name="usuarioEmail" placeholder="Nome. ex: joao@ezconet.com" maxlength="100" value="@ViewBag.Usuario.Email" required/>
+            <span class="is-invalid">@Html.ValidationMessage("usuario.Email")</span>
+        </div>
+        <br />
+        <div style="width: 90%;">
+            <label id="lblSenha1">Senha: </label>
+            <input type="password" class="form-control" id="campoSenha1" name="usuarioSenha1" placeholder="Senha. ex: 123456" maxlength="30" required/>
+            <span class="is-invalid">@Html.ValidationMessage("usuarioSenha1")</span>
+        </div>
+        <br />
+        <div style="width: 90%;">
+            <label id="lblSenha2">Confirmar Senha: </label>
+            <input type="password" class="form-control" id="campoSenha2" name="usuarioSenha2" placeholder="Senha. ex: 123456" maxlength="30" required/>
+            <span class="is-invalid">@Html.ValidationMessage("usuarioSenha2")</span>
+        </div>    
+        <br />
+        <div style="width: 90%;">
+            <input type="checkbox" class="checkbox" id="usuarioAtivo" name="usuarioAtivo" checked="checked" value="1"/>
+            <label for="usuarioAtivo" class="checkbox" ><b>Ativar</b> usuário ao cadastrar.</label>
+        </div>
+        <br />
+        <div style="margin-left: 25%; width: 10%">
+            <center>
+                <input type="submit" id="btnCadastrar" name="Cadastrar" class="btn btn-outline-primary" value="Cadastrar"  />
+            </center>
+        </div>
+    </form>
+</div>
+
+<!-- Carrega script de validação do usuario (ultimo teste) -->
+<script type="text/javascript" src="~/Content/js/ValidadorCadastroUsuario.js"></script>

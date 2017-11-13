@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <title>@Page.Title - EZConet</title>
+
+    <!-- Page theme loadout-->
+    <link href="~/Content/themes/base/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+
+    <!-- Icon -->
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+    <!-- Parallax -->
+    <link rel="stylesheet" href="~/Content/css/Parallax.css" />
+
+    <!-- Load personalized CSS -->
+    <link rel="stylesheet" href="~/Content/css/Site.css" />
+    <link rel="stylesheet" href="~/Content/css/Personalizado.css" />
+
+    <!-- Load bootstrap -->
+    <link rel="stylesheet" href="~/Content/css/bootstrap.css" />
+
+    <!-- Size of device-->
+    <meta name="viewport" content="width=device-width" />
+</head>
+<body>
+    <header>
+        <!-- NavBar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <!-- Brand and logo -->
+            <a class="navbar-brand" href="@Url.Action("Index","Home")">EZCONET</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Nav Content -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="@Url.Action("Index","Home")">Home</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="@Url.Action("About","Home")">Sobre</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="@Url.Action("Index","Usuario")">Usuários</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="@Url.Action("Contact","Home")">Contato</a>
+                    </li>
+                </ul>
+
+                <!-- Check if session already exist -->
+                <section id="">
+                    @if (Session["statusLogin"] == null)
+                    {
+                        <form class="form-inline">
+                            <a href="@Url.Action("Login","Usuario")">
+                                <input type="button" class="btn btn-outline-info" style="width: 75px;" value="Entrar">
+                            </a>
+                            <a href="@Url.Action("Form","Usuario")">
+                                <input type="button" class="btn btn-outline-success" value="Cadastrar" style="width: 100px; margin-left: 5px;">
+                            </a>
+                        </form>
+                    }
+                    else
+                    {
+                        <div class="form-inline my-2 my-lg-0">
+                            <span class="navbar-text">Logado como: <b><font color="yellow"><a href="#">usuario</a></font></b></span>
+                            <div style="margin-left: 15px;">
+                                <form action="#" method="POST" name="FormSair" class="form-inline my-2 my-lg-0">
+                                    <a href="#">
+                                        <input type="button" class="btn btn-outline-danger my-2 my-sm-0" value="Sair">
+                                    </a>
+                                </form>
+                            </div>
+                        </div>
+                    }
+                </section>
+            </div>
+        </nav>
+    </header>
+    <div id="body">
+        <br />
+        @RenderSection("featured", required: false)
+        <section class="content-wrapper main-content clear-fix">
+            <br />
+            @RenderBody()
+        </section>
+    </div>
+    <footer>
+        <div class="content-wrapper">
+            <div class="float-left">
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Web Page</p>
+            </div>
+        </div>
+    </footer>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
+
+<!-- Load JQuery -->
+<script src="~/Scripts/jquery-1.12.4.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+<script src="~/Scripts/modernizr-2.6.2.js"></script>
+
+<!-- Load Boostrap JS -->
+<script src="~/Content/js/Popper.js"></script>
+<script src="~/Content/js/bootstrap.js"></script>
+<script src="~/Content/js/bootstrap.bundle.js"></script>

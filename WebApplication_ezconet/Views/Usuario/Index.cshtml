@@ -1,0 +1,117 @@
+﻿<!-- Exibe mensagem -->
+@if (!string.IsNullOrEmpty(ViewBag.Mensagem))
+{
+    <script type="text/javascript">
+        alert('@ViewBag.Mensagem');
+    </script>
+}
+
+<div id="filtro" class="form-group" style="margin-bottom: -5px;">
+    <!-- Campos do filtro -->
+    <div style="width: 24%;">
+        Nome:
+        <input id="CampoFiltroNome" class="form-control" type="text" placeholder="Nome. ex: João" />
+        <!-- ComboBox para Status-->
+        <div style="position:relative; margin-left: 102%; margin-top: -62px;">
+            Status:
+            <select id="CampoFiltroAtivo" class="form-control" style="width: 125px">
+                <option id="AtivoQualquer" class="text-muted" selected="selected" value="2">Indefinido</option>
+                <option id="AtivosApenas" value="1">Ativado</option>
+                <option id="DesativadosApenas" value="0">Desativado</option>
+            </select>
+        </div>
+        <div style="margin-left: 160%; margin-top: -41.5px;">
+            <input type="button" id="btnBuscar" class="btn btn-outline-primary" style="width: 68px; margin-bottom: -17px;" value="Filtrar" onclick="FiltraTabela();" />
+        </div>
+        <div style="margin-left: 193%; margin-top: -25.5px;">
+            <input type="button" id="btnResetar" class="btn btn-outline-success" style="width: 75px; margin-bottom: -17px;" value="Limpar" onclick="LimpaFiltros();" />
+        </div>
+    </div>
+    <div style="width: 24%;">
+        <!-- Botão para adicionar mais usuarios -->
+        <div style="position:relative; margin-left: 348%; margin-top: -20px;">
+            <a href="/Usuario/Form" class="btn btn-success">
+                Adicionar usuário
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<!-- Exibe contador -->
+<hr style="margin-bottom: 5px;"/>
+@{  int contador = 0;
+    foreach (var usuario in ViewBag.Usuario) { contador++; }
+}
+<span id="mostraContador" class="text-muted">Foram encontrados @contador resultados.</span>
+<br />
+<!-- DataSet -->
+<table class="table table-hover table-light">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Data de Nascimento</th>
+            <th>E-mail</th>
+            <th>Genero</th>
+            <th>Ativo</th>
+            <th>Ação</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Carrega DataSet atravéz de um ViewBag -->
+        @foreach (var usuario in ViewBag.Usuario)
+        {
+            <tr class="usuario">
+                <td id="nome@(usuario.UsuarioId)" class="usuarioNome">@usuario.Nome</td>
+                <td id="nascimento@(usuario.UsuarioId)">@usuario.DataNascimento</td>
+                <td id="email@(usuario.UsuarioId)">@usuario.Email</td>
+
+                <!-- Retorna descrição do Genero -->
+                @foreach (var sexo in ViewBag.Sexo)
+                { if (sexo.SexoId == usuario.SexoId) {
+
+                        <td id="genero@(usuario.UsuarioId)">@sexo.Descricao</td> 
+                    } }
+                
+                <!-- Nomeclatura para coluna 'ativo' -->
+                @if (usuario.Ativo == 1) { <td id="status@(usuario.UsuarioId)" class="usuarioStatus" value="1">Ativo</td> }
+                else { <td id="status@(usuario.UsuarioId)" class="usuarioStatus" value="0">Desativado</td>
+                }                    
+                <td>
+                    <a href="/Usuario/MudaStatus/@usuario.UsuarioId" class="btn btn-outline-info" style="width: 90px;"> @if (usuario.Ativo == 1) { <font>Desativar</font> } else { <font> Ativar </font > }</a>
+                    <a href="/Usuario/MudaStatus/@usuario.UsuarioId" class="btn btn-outline-success">Editar</a>
+                    <a href="/Usuario/Remove/@usuario.UsuarioId" class="btn btn-outline-danger">Remover</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Script para filtragem do dataset-->
+<script type="text/javascript" src="~/Content/js/Filtragem.js"></script>
+
+<!-- Carregando biblioteca do JQuery-->
+<script type="text/javascript" src="~/Scripts/jquery-1.10.2.js"></script>
+
+<!-- Ajax script para atualização do status 'Ativo' (Em fase de testes)-->
+<!--
+<script type="text/javascript">
+    // PRECISA ARRUMAR ESTE
+    function mudaStatus(usuarioId) {
+        var url = "@Url.Action("MudaStatus", "Usuario")";
+        var params = { id: usuarioId };
+        $.post(url, params, atualiza);
+    }
+
+    // PRECISA ARRUMAR ESTE
+    function atualiza(resposta) {
+        var colunaStatus = $("#status" + resposta.usuarioId);
+        if (resposta.Ativo.Equals("1")) {
+            colunaStatus.html("Ativo");
+        }
+        else {
+            colunaStatus.html("Desativado");
+        }
+    }
+</script>
+-->

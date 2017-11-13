@@ -1,0 +1,59 @@
+﻿@{  Page.Title = "Login"; }
+
+<!-- Exibe mensagem -->
+@if (!string.IsNullOrEmpty(ViewBag.Mensagem))
+{
+    <script type="text/javascript">
+        alert('@ViewBag.Mensagem');
+    </script>
+}
+
+<hgroup class="title">
+    <h1 style="margin-left: -1px;">@Page.Title</h1>
+</hgroup>
+
+<section id="loginForm">
+    <h6>Entre para ter acesso a diversas ferramentas.</h6>
+    <hr style="width: 95%;margin-left: -30px; margin-top: -5px;" />
+    <form method="post">
+        @* If one or more validation errors exist, show an error *@
+        @Html.ValidationSummary("Login incompleto. Por favor, corrija os erros e tente novamente.")
+
+        <fieldset>
+            <legend>Log in to Your Account</legend>
+            <ol>
+                <li class="email">
+                    <label for="email">Email</label>
+                    <input type="text" id="email" name="email" class="form-control" style="width: 90%;" placeholder="Email. ex: teste@ezconet.com" value="" />
+                    @* Write any user name validation errors to the page *@
+                    @Html.ValidationMessage("email")
+                </li>
+                <br>
+                <li class="password">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" name="password" class="form-control" style="width: 90%;" placeholder="Senha. ex: 123456" />
+                    @* Write any password validation errors to the page *@
+                    @Html.ValidationMessage("password")
+                </li>
+                <p><a href="~/Account/ForgotPassword">Esqueceu a senha?</a></p>
+
+                <li class="form-check">
+                    <input class="checkbox" type="checkbox" id="contact-accept" name="contact-accept" />
+                    <label class="checkbox" for="contact-accept">Aceito <b>informar um feedback após a avaliação</b> em prol da melhoria deste desenvolvedor.</label>
+                </li>
+                <li class="form-check">
+                    <input type="checkbox" id="rememberMe" name="rememberMe" value="true" />
+                    <label class="checkbox" for="lembrarMe">Lembrar-me?</label>
+                </li>
+            </ol>
+            <center>
+                <input type="submit" class="btn btn-outline-primary" style="width: 25%; margin-left: -10%;" value="Entrar" />
+            </center>
+        </fieldset>
+    </form>
+
+</section>
+
+<section class="social" id="socialLoginForm">
+    <h2>Use another service to log in.</h2>
+</section>

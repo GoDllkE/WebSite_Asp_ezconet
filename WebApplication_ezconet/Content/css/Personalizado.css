@@ -1,0 +1,22 @@
+﻿.fadeIn {
+    opacity: 100;
+    transition: 0.5s;
+}
+
+.fadeOutNome {
+    opacity: 0;
+    transition: 0.1s;
+}
+
+.fadeOutAtivo {
+    opacity: 0;
+    transition: 0.5s;
+}
+
+.invisivelNome {
+    display: none !important;
+}
+
+.invisivelAtivo {
+    display: none !important;
+}
